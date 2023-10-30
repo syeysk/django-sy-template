@@ -15,10 +15,12 @@ ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 DEBUG = env('DEBUG')
 ROOT_URLCONF = 'server.urls'
 WSGI_APPLICATION = 'server.wsgi.application'
+METRIC_SYSTEM_CODE = env.str('METRIC_SYSTEM_CODE', default='', multiline=True)
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR.parent / 'static'
 SITE_URL = env('SITE_URL')
 INTERNAL_IPS = ['127.0.0.1']
+CSRF_TRUSTED_ORIGINS = [SITE_URL]
 
 API_SALT = env('API_SALT')
 API_SECRET_KEY = env('API_SECRET_KEY')
@@ -61,6 +63,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django_sy_framework.custom_auth.context_processors.extern_auth_services',
+                'django_sy_framework.base.context_processors.settings_variables',
             ],
         },
     },
@@ -71,18 +74,26 @@ SECRET_KEY = env('SECRET_KEY')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'sqlite3.db',
+        'NAME': BASE_DIR / '.sqlite3.db',
     }
 }
 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'main': {
+            'format': '{levelname} {asctime} {message}',
+            'style': '{',
+            'datefmt': '%Y-%m-%d %H:%M:%S',
+        }
+    },
     'handlers': {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'debug.log',
+            'filename': BASE_DIR / '.debug.log',
+            'formatter': 'main',
         },
     },
     'loggers': {

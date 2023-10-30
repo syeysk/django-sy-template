@@ -24,6 +24,12 @@ pip install -r requirements.txt
 python manage.py migrate
 ```
 
+Сбор статических файлов:
+
+```sh
+python manage.py collectstatic
+```
+
 Заполнить переменные окружения, добавив и заполнив файл `.env`
 
 Запуск сервера:
