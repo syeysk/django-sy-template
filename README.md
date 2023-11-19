@@ -46,7 +46,7 @@ HTTP/2 200 возвращает JSON ответ.
 
 ## API сервера
 
-[Документация API](https://github.com/TVP-Support/django_knowledge/wiki)
+[Документация API](https://127.0.0.1:8000/api/v1/schema/swagger-ui/)
 
 ## План разработки микросервиса
 
